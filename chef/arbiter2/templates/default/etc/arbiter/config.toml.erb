@@ -1,0 +1,69 @@
+[general]
+debug_mode = <%= @config['general']['debug_mode'] %>
+arbiter_refresh =  <%= @config['general']['arbiter_refresh'] %>
+history_per_refresh = <%= @config['general']['history_per_refresh'] %>
+min_uid = <%= @config['general']['min_uid'] %>
+
+[self]
+groupname = "<%= @config['self']['groupname'] %>"
+
+[badness]
+max_history_kept = <%= @config['badness']['max_history_kept'] %>
+cpu_badness_threshold = <%= @config['badness']['cpu_badness_threshold'] %>
+mem_badness_threshold = <%= @config['badness']['mem_badness_threshold'] %>
+time_to_max_bad = <%= @config['badness']['time_to_max_bad'] %>
+time_to_min_bad = <%= @config['badness']['time_to_min_bad'] %>
+
+[email]
+email_domain = "<%= @config['email']['email_domain'] %>"
+from_email = "<%= @config['email']['from_email'] %>"
+admin_emails = <%= @config['email']['admin_emails'] %>
+mail_server = "<%= @config['email']['mail_server'] %>"
+keep_plots = <%= @config['email']['keep_plots'] %>
+plot_location = "<%= @config['email']['plot_location'] %>"
+
+[database]
+log_location = "<%= @config['database']['log_location'] %>"
+log_rotate_period = <%= @config['database']['log_rotate_period'] %>
+
+[processes]
+memsw = <%= @config['processes']['memsw'] %>
+pss = <%= @config['processes']['pss'] %>
+whitelist = <%= @config['processes']['whitelist'] %>
+whitelist_file = '<%= @config['processes']['whitelist_file'] %>'
+
+[status]
+order = <%= @config['status']['order'] %>
+fallback_status = '<%= @config['status']['fallback_status'] %>'
+div_cpu_quotas_by_threads_per_core = <%= @config['status']['div_cpu_quotas_by_threads_per_core'] %>
+
+<% @config['status']['groups'].each_key do |status_group| -%>
+[status.<%= status_group %>]
+uids = <%= @config['status']['groups'][status_group]['uids'] %>
+cpu_quota = <%= @config['status']['groups'][status_group]['cpu_quota'] %>
+mem_quota = <%= @config['status']['groups'][status_group]['mem_quota'] %>
+
+<% end %>
+
+[status.penalty]
+relative_quotas = <%= @config['status']['penalty']['relative_quotas'] %>
+order = <%= @config['status']['penalty']['order'] %>
+occur_timeout = <%= @config['status']['penalty']['occur_timeout'] %>
+
+<% @config['status']['penalty']['groups'].each_key do |penalty_group| -%>
+[status.penalty.<%= penalty_group %>]
+timeout = <%= @config['status']['penalty']['groups'][penalty_group]['timeout'] %>
+cpu_quota = <%= @config['status']['penalty']['groups'][penalty_group]['cpu_quota'] %>
+mem_quota = <%= @config['status']['penalty']['groups'][penalty_group]['mem_quota'] %>
+expression = "<%= @config['status']['penalty']['groups'][penalty_group]['expression'] %>"
+
+<% end %>
+  
+[high_usage_watcher]
+high_usage_watcher = <%= @config['high_usage_watcher']['high_usage_watcher'] %>
+cpu_usage_threshold = <%= @config['high_usage_watcher']['cpu_usage_threshold'] %>
+mem_usage_threshold = <%= @config['high_usage_watcher']['mem_usage_threshold'] %>
+timeout = <%= @config['high_usage_watcher']['timeout'] %>
+div_cpu_thresholds_by_threads_per_core = <%= @config['high_usage_watcher']['div_cpu_thresholds_by_threads_per_core'] %>
+user_count = <%= @config['high_usage_watcher']['user_count'] %>
+
